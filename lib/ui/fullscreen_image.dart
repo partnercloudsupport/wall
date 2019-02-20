@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FullScreenImagePage extends StatelessWidget {
-  String imgPath;
+  final String imgPath;
   FullScreenImagePage(this.imgPath);
 
   final LinearGradient backgroundGradient = new LinearGradient(

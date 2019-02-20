@@ -29,6 +29,12 @@ class _GalleryPageState extends State<GalleryPage> {
   bool uploading = false;
 
   DocumentSnapshot currentWall;
+  List<Wall> wallList = new List<Wall>();
+  void setWallList(List<Wall> newList) {
+    setState(() {
+      wallList = newList;
+    });
+  }
 
   String view = "grid";
   int crossAxisCount = 4;
@@ -158,7 +164,12 @@ class _GalleryPageState extends State<GalleryPage> {
                       style: TextStyle(color: Colors.grey),
                     ),
                   ),
-                  WallListView(userId: widget.userId, currentWallId: currentWall?.documentID, onOpenWall: _openWall),
+                  WallListView(
+                      userId: widget.userId,
+                      currentWallId: currentWall?.documentID,
+                      onOpenWall: _openWall,
+                      wallList: wallList,
+                      onWallListChanged: setWallList),
                   Divider(),
                   ListTile(
                     title: Text("Wall hinzufügen"),
@@ -194,4 +205,6 @@ class _GalleryPageState extends State<GalleryPage> {
       ),
     );
   }
+
+  getRandomString() {}
 }

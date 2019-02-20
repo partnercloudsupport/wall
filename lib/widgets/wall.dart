@@ -4,8 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:wall_ly/ui/fullscreen_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class Wall extends StatefulWidget {
+class Wall extends StatefulWidget implements Comparable {
   const Wall({this.wallId, this.displayName});
 
   factory Wall.fromDocument(DocumentSnapshot document) {
@@ -18,6 +19,13 @@ class Wall extends StatefulWidget {
     );
   }
 
+  factory Wall.fromStrings(String wallId, String displayName) {
+    return new Wall(
+      wallId: wallId,
+      displayName: displayName,
+    );
+  }
+
   final String wallId;
   final String displayName;
 
@@ -25,6 +33,11 @@ class Wall extends StatefulWidget {
         wallId: this.wallId,
         displayName: this.displayName,
       );
+
+  @override
+  int compareTo(other) {
+    return wallId.compareTo(other.wallId); 
+  }
 }
 
 class _Wall extends State<Wall> {
@@ -82,7 +95,7 @@ class _Wall extends State<Wall> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4.0),
                   child: new FadeInImage(
-                    image: new NetworkImage(imgPath),
+                    image: new CachedNetworkImageProvider(imgPath),
                     fit: BoxFit.cover,
                     placeholder: new AssetImage("assets/images/logo_couple_greyscale.png"),
                   ),
