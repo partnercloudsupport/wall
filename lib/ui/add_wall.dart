@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:qr_mobile_vision/qr_camera.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wall_ly/services/auth.dart';
@@ -15,6 +16,9 @@ class AddWallPage extends StatefulWidget {
 
 class _AddWallPageState extends State<AddWallPage> {
   TextEditingController wallIdController = new TextEditingController();
+
+  String qr;
+  bool camState = false;
 
   void _back() {
     Navigator.pop(context);
@@ -85,9 +89,35 @@ class _AddWallPageState extends State<AddWallPage> {
           ),
         ],
       ),
-      body: TextField(
-        controller: wallIdController,
-        decoration: InputDecoration(labelText: 'Wall ID'),
+      body: Column(
+        children: <Widget>[
+          TextField(controller: wallIdController, decoration: InputDecoration(labelText: 'Wall ID')),
+          new Expanded(
+              child: new Center(
+                      child: new SizedBox(
+                        width: 300.0,
+                        height: 600.0,
+                        child: new QrCamera(
+                          onError: (context, error) => Text(
+                                error.toString(),
+                                style: TextStyle(color: Colors.red),
+                              ),
+                          qrCodeCallback: (code) {
+                            setState(() {
+                              qr = code;
+                            });
+                          },
+                          child: new Container(
+                            decoration: new BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(color: Colors.orange, width: 10.0, style: BorderStyle.solid),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )),
+          new Text("QRCODE: $qr"),
+        ],
       ),
     ));
   }

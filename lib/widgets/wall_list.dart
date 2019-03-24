@@ -36,8 +36,6 @@ class _WallListView extends State<WallListView> {
   StreamSubscription<DocumentSnapshot> subscription;
 
   void _initWallList() async {
-    print(widget.wallList);
-
     var reference = Firestore.instance.collection('users').document(widget.userId);
     subscription = reference.snapshots().listen((data) {
       _updateWallList(data);
@@ -56,10 +54,6 @@ class _WallListView extends State<WallListView> {
       }
 
       widget.onWallListChanged(l);
-
-      // setState(() {
-      //   wallsList = l;
-      // });
     }
   }
 

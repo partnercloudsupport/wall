@@ -121,7 +121,7 @@ class _GalleryPageState extends State<GalleryPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Wall.ly'),
+          title: const Text('Wall.ly', style: TextStyle(color: Colors.white, fontFamily: 'AsmelinaHarley', fontWeight: FontWeight.bold, fontSize: 24)),
           centerTitle: true,
           backgroundColor: const Color(0xFFFE7B80),
         ),
